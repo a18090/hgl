@@ -36,11 +36,10 @@ const fixRotatedScale = (isPortrait) => {
 }
 
 const defaultFfmpegOptions = {
-  videoEncoder: 'libx264',
-  frameRate: 30,
-  maxVideoBitRate: 4000,
-  preset: 'slow',
-  profile: 'baseline',
+  videoEncoder: 'libx265',
+  frameRate: 24,
+  maxVideoBitRate: 2000,
+  preset: 'veryfast',
   level: '3.0',
   ext: 'mp4'
 }
@@ -55,14 +54,11 @@ function getFfmpegArgs(entry, options) {
     `-c:v ${ffmpegOptions.videoEncoder}`,
     '-c:a aac',
     `-r ${ffmpegOptions.frameRate}`,
-    `-vf scale=${ffmpegOptions.scale},format=yuv420p`,
+    `-vf scale=${ffmpegOptions.scale}`,
     `-preset ${ffmpegOptions.preset}`,
-    '-tune film',
-    `-profile:v ${ffmpegOptions.profile}`,
     `-level:v ${typeof ffmpegOptions.level == 'number' ? ffmpegOptions.level.toFixed(1) : ffmpegOptions.level}`,
     `-maxrate ${ffmpegOptions.maxVideoBitRate}k`,
     `-bufsize ${2 * ffmpegOptions.maxVideoBitRate}k`,
-    '-movflags +faststart',
     '-b:a 128k'
   ]
 
