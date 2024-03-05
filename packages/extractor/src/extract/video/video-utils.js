@@ -52,6 +52,7 @@ function getFfmpegArgs(entry, options) {
 
   const defaultFfmpegArgs = [
     `-c:v ${ffmpegOptions.videoEncoder}`,
+    '-x265-params asm=avx512',
     '-c:a aac',
     `-r ${ffmpegOptions.frameRate}`,
     `-vf scale=${ffmpegOptions.scale}`,
